@@ -5,7 +5,7 @@ export jmx_template_filename="${jmx_template}${suffix}"
 export os_type=`uname`
 
 # 需要在系统变量中定义jmeter根目录的位置，如下
-# export jmeter_path="/your jmeter path/"
+# export JMETER_HOME="/your jmeter path/"
 
 # 清空nohup.out
 cat /dev/null > nohup.out
@@ -23,7 +23,7 @@ killJMeter()
     fi
 }
 
-thread_number_array=(10 20 30 40 50)
+thread_number_array=(10 20)
 for num in "${thread_number_array[@]}"
 do
     # 生成对应压测线程的jmx文件
@@ -41,7 +41,7 @@ do
     fi
 
     # JMeter 静默压测
-    nohup ${jmeter_path}/bin/jmeter -n -t ${jmx_filename} -l ${jtl_filename} &
+    nohup ${JMETER_HOME}/bin/jmeter -n -t ${jmx_filename} -l ${jtl_filename} &
     sleep 65
     killJMeter
     rm -f ${jmx_filename}
